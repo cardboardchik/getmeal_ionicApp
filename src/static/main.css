@@ -1,0 +1,256 @@
+html {
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+}
+
+.disabled{
+    opacity: 0.5;
+}
+
+.restaurant-head {
+    height: 250px;
+}
+
+.img-full {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+ion-avatar {
+    position: absolute;
+    top: 150px;
+    left: 25px;
+
+    height: 90px;
+    width: 90px;
+}
+
+.restaurant-info {
+    padding: 20px 25px 10px 25px;
+}
+
+.restaurant-name {
+    font-weight: 700;
+}
+
+ion-icon {
+    width: 20px;
+    height: 20px;
+
+    color: #E96E0E;
+
+}
+
+.work-time {
+    font-weight: 400;
+}
+
+.nav-menu {
+    background-color: #fff;
+
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+
+    margin: 0;
+
+    z-index: 99;
+}
+
+
+.categories::-webkit-scrollbar {
+    display: none;
+}
+  
+
+.categories {
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+
+    background-color: #fff;
+
+    margin: 0;
+    padding: 5px;
+    
+
+} 
+
+.segment-button-checked {
+    color: #E96E0E;
+    background-color: #fff;
+    box-shadow: none;
+}
+
+
+
+.ios ion-label {
+    font-size: large;
+    text-decoration: none;
+    padding: 10px;
+}
+
+ion-label:hover {
+    color: #E96E0E;
+}
+
+.item-card {
+    display: block;
+    background-color: #F5F4F2;
+    margin: 0;
+    height: 310px;
+    border-radius: 14px;
+    position: relative; /* Добавляем позиционирование для родительского элемента */
+}
+
+.item-img {
+    height: 150px;
+    object-fit: cover;
+}
+
+.item-price {
+    color: black;
+    font-size: large;
+}
+
+.item-name {
+    font-size: large;
+    font-weight: 300;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-add {
+    display: flex;
+    position: absolute; /* Абсолютное позиционирование для кнопки */
+    bottom: 5px; 
+    left: 0; 
+    width: 100%;
+    height: 35px;
+    padding: 0px 5px 5px 5px;
+}
+
+.item-add-btn {
+    color: #000;
+    --background: #fff;
+
+    width: 100%;
+    height: 100%;
+    --border-radius: 14px;
+}
+
+.item-add-btn ion-icon{
+    color: #000;
+}
+
+.category-name {
+    padding: 5px;
+}
+
+.block {
+    width: 100%;
+    height: 90vh;
+
+}
+
+ion-modal {
+    --height: auto;
+}
+
+.item-add-block {
+    font-size: large;
+    width: 100%;
+    height: auto;
+    padding-bottom: 10px;
+
+    background-color: #fff;
+    
+    position: fixed;
+    bottom: 0px;
+}
+
+.add-group-btns{
+    height: 60px;
+}
+
+.add-to-cart-btn {
+    color: #fff;
+    background: #E96E0E;
+
+    width: 100%;
+    height: 100%;
+    border-radius: 14px;
+}
+
+.counter {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    
+}
+.counter button {  
+    display: flex;
+
+    width: 100%;
+    height: 100%;
+    border-radius: 14px;
+
+    align-items: center;
+    justify-content: center;
+
+}
+.counter button ion-icon {
+    color: #000;
+
+
+}
+
+
+.counter .counter-value {
+    width: 50px;
+    height: 100%;
+    text-align: center;
+    border: 0;
+}
+
+.description-block {
+    padding: 10px;
+}
+
+.next-div-container {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    height: 65px;
+    background-color: #fff;
+    border-radius: 14px 14px 0 0;
+    padding: 5px; 
+}
+
+.next-btn {
+    color: #fff;
+    font-weight: bold;
+    background-color: #E96E0E;
+    border-radius: 14px;
+    width: 100%; 
+    height: 55px;
+}
+
+
+.next-btn-price {
+    font-weight: 500;
+    opacity: 0.8;
+    text-align: end;
+    padding-right: 10px;
+    
+}
+
+.next-btn-count {
+    font-weight: 500;
+    opacity: 0.8;
+    text-align: start;
+    padding-left: 10px;
+}
