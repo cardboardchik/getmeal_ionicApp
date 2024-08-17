@@ -21,23 +21,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="static/main.css">
+    <link rel="stylesheet" href="./src/static/main.css">
     
 
 </head>
 <body>
-    <ion-app></ion-app>
-    <ion-router >
-        <ion-route url="/" component="page-menu"></ion-route>
-        <ion-route url="/page-cart" component="page-cart"></ion-route>
-    </ion-router>
-
-    <ion-router-outlet></ion-router-outlet>
-    </ion-app>
-    <script src="static/nav.js"></script>
-
+    <app-root></app-root>
+    
+    <script type="module" src="./src/app.js"></script>
 </body>
-    
-    
-
 </html>

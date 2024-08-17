@@ -7,6 +7,11 @@ html {
     opacity: 0.5;
 }
 
+.ion-activated {
+    --background-activated: #F5F4F2;
+
+}
+
 .restaurant-head {
     height: 250px;
 }
@@ -254,3 +259,40 @@ ion-modal {
     text-align: start;
     padding-left: 10px;
 }
+
+/* cart */
+.cart-toolbar {
+    --padding-top: 15px;
+    --padding-start: 15px;
+    --padding-end: 15px;
+
+    --background: #fff;
+    --border-color: #fff
+}
+
+ion-back-button {
+    color: #000
+}
+
+.ios ion-item {
+    padding: 0 15px 0 0;
+}
+
+.ios ion-item ion-grid {
+    padding: 5px 0;
+}
+.ios ion-item ion-grid ion-row ion-col {
+    padding: 0;
+}
+
+.cart-item-grid {
+    --ion-grid-columns: 15;
+}
+
+.item-cart-img {
+    height: 70px;
+    object-fit: cover;
+
+    border-radius: 14px;
+}
+
