@@ -236,7 +236,9 @@ export default class Menu extends HTMLElement {
           </ion-col>
         </ion-row>
       </ion-grid>
-
+    
+    </ion-content>
+    <ion-footer>
     <div class="next-div-container">
         <ion-router-link href="/cart">
             <button class="next-btn">
@@ -250,10 +252,7 @@ export default class Menu extends HTMLElement {
             </button>
         </ion-router-link>
     </div>
-
-    
-    </ion-content>
-    `;
+    </ion-footer>`;
     
     }
 }

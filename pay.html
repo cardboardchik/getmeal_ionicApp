@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" mode="ios">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- ionic -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./src/static/main.css">
+    
+
+</head>
+<body>
+    <ion-header>
+        <ion-toolbar class="cart-toolbar">
+        <ion-buttons slot="start">
+          <ion-back-button default-href="/" icon="arrow-back-outline" text=""></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Payment
+            <div class="small fw-light">Table №1</div>
+        </ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-radio-group value="space-between">
+            <h1 style="padding:15px 0 0 15px;">Payment Method</h1>
+            <ion-item>
+              <ion-radio value="space-between" justify="space-between" class="pay-method-radio">
+                <div class="pay-method-radio">
+                    <ion-icon name="card" style="width: 36px; height:36px;"></ion-icon>
+                    <span style="padding-left: 8px;">Card</span>
+                </div>
+              </ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-radio value="space-between1" justify="space-between" class="pay-method-radio">
+                <img src="media\sample\KKS.F_BIG.svg" alt="Kaspi" style="width: 150px;">
+              </ion-radio>
+            </ion-item>
+            <ion-item style="--inner-border-width: 0;">
+                <ion-radio value="space-between2" justify="space-between" class="pay-method-radio">
+                  <div class="pay-method-radio">
+                        <ion-icon name="receipt" style="width: 36px; height:36px;"></ion-icon>
+                      <span style="padding-left: 8px;">Pay Later</span>
+                  </div>
+                </ion-radio>
+            </ion-item>
+        </ion-radio-group>
+        
+    
+
+    </ion-content>
+    <div class="next-div-container" style="padding:0px">
+        <ion-grid style="padding:0px">
+            <ion-row>
+              <ion-col size="5">
+                <div>
+                    <span class="fs-1">3000 T</span>
+                    <div class="small" style="margin-top: -10px;">Total</div>
+                </div>
+              </ion-col>
+              <ion-col size="7">
+                <ion-router-link href="/">
+                    <button class="add-to-cart-btn fw-bold" >
+                        Order
+                    </button>
+                </ion-router-link>
+              </ion-col>
+            </ion-row>
+        </ion-grid>
+</div>
+    
+    <script type="module" src="./src/app.js"></script>
+</body>
+</html>
