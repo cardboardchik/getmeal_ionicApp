@@ -7,9 +7,10 @@ class AppRoot extends HTMLElement {
       this.innerHTML = `
         <ion-app>
           <ion-router>
-            <ion-route url="/" component="nav-menu"></ion-route>
-            <ion-route url="/cart" component="nav-cart"></ion-route>
-            <ion-route url="/pay" component="nav-pay"></ion-route>
+            <ion-route url="/:restaurant_Id" component="nav-menu"></ion-route>
+            <ion-route url="/:restaurant_Id/cart" component="nav-cart"></ion-route>
+            <ion-route url="/:restaurant_Id/pay" component="nav-pay"></ion-route>
+            
           </ion-router>
           <ion-nav><ion-nav>
         </ion-app>`;

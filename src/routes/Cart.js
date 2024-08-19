@@ -128,7 +128,7 @@ export default class Cart extends HTMLElement {
     </ion-content>
     <ion-footer>
     <div class="next-div-container">
-          <ion-router-link href="/pay">
+          <ion-router-link href="${this.restaurant_Id}/pay">
               <button class="next-btn">
                   <ion-grid>
                       <ion-row>

@@ -1,7 +1,90 @@
+import API_URL from "./api.js";
+
+
+
 export default class Menu extends HTMLElement {
     connectedCallback() {
         this.render();
 
+
+
+        function get_categories(menu_id) {
+            var settings = {
+                "url": `${API_URL}/api/menu/category/${menu_id}`,
+                "method": "GET",
+              };
+              
+            $.ajax(settings).done(function (response) {
+            console.log(response)
+            let html_res = ``
+            response.forEach(response => {
+            html_res = html_res + `<ion-segment-button value="${response.id}">
+                                        <ion-label>${response.name}u</ion-label>
+                                    </ion-segment-button>`
+            })
+
+            $("#category_select").html(html_res)
+            $("#category_select").val(response[0].id)
+
+            });
+        }
+
+        var settings = {
+            "url": `${API_URL}/api/restaurant/${this.restaurant_Id}`,
+            "method": "GET",
+          };
+          
+          $.ajax(settings).done(function (response) {
+            $(".restaurant-head").html(`
+                <img src="${response.image}" alt="img" class="img-full" >
+                <ion-avatar>
+                    <img alt="img" src="${response.organization.image}" />
+                </ion-avatar>
+            `)
+
+            $(".restaurant-info").html(`
+                <h1 class="restaurant-name">${response.organization.name} ${response.name}</h1>
+                <h5 class="text-secondary">Restaurant</h5>
+                
+                <ion-grid class="mt-3 p-0">
+                    <ion-row>
+                    <ion-col size="auto" class="px-0"><ion-icon name="time" class="align-baseline"></ion-icon></ion-col>
+                    <ion-col class="align-middle px-2"><h6 class="work-time">${response.work_time_open.slice(0, -3)} - ${response.work_time_close.slice(0, -3)}</h6></ion-col>
+
+                    </ion-row>
+                </ion-grid>
+            `)
+          });
+
+        
+        var settings = {
+            "url": `${API_URL}/api/menu/${this.restaurant_Id}`,
+            "method": "GET",
+          };
+        
+
+        $.ajax(settings).done(function (response) {
+            console.log(response)
+            let html_res = ``
+            response.forEach(response => {
+                html_res = html_res + `<ion-segment-button value="${response.id}">
+                                            <ion-label>${response.name} Menu</ion-label>
+                                        </ion-segment-button>`
+            })
+            $("#menu_select").html(html_res)
+            $("#menu_select").val(response[0].id)
+            get_categories(response[0].id)
+            $(document).ready(function() {
+                $('ion-segment-button').on('click', function(e) {
+                    get_categories(e.target.value)
+                });
+    
+            });
+        });
+
+        
+        
+        
         
         var modal = document.querySelectorAll('ion-modal');
 
@@ -39,63 +122,17 @@ export default class Menu extends HTMLElement {
     this.innerHTML = `
     <ion-content>
     <div class="restaurant-head">
-        <img src="/media/sample/Bitmap.png" alt="img" class="img-full">
-        <ion-avatar>
-            <img alt="img" src="/media/sample/s_logo.svg" />
-        </ion-avatar>
+        
     </div>
     <div class="restaurant-info">
-        <h1 class="restaurant-name">Starbucks Dostyk</h1>
-        <h5 class="text-secondary">Сoffee Shop</h5>
         
-        <ion-grid class="mt-3 p-0">
-            <ion-row>
-              <ion-col size="auto" class="px-0"><ion-icon name="time" class="align-baseline"></ion-icon></ion-col>
-              <ion-col class="align-middle px-2"><h6 class="work-time">9:00 - 18:00</h6></ion-col>
-
-            </ion-row>
-          </ion-grid>
     </div>
     <div class="nav-menu" mode="ios">
-        <ion-segment scrollable="true" value="default" class="categories">
-            <ion-segment-button value="default">
-                <ion-label>Default Menu</ion-label>
-            </ion-segment-button>
-            <ion-segment-button value="vegan">
-                <ion-label>Vegan Menu</ion-label>
-            </ion-segment-button>
+        <ion-segment scrollable="true" value="default" class="categories" id="menu_select">
+
         </ion-segment>
-        <ion-segment scrollable="true" value="coffee" class="categories">
-            <ion-segment-button value="coffee">
-                <ion-label>Coffee</ion-label>
-            </ion-segment-button>
-            <ion-segment-button value="snacks">
-                <ion-label>Snacks</ion-label>
-            </ion-segment-button>
-            <ion-segment-button value="sheik">
-                <ion-label>Шейки</ion-label>
-            </ion-segment-button>
-            <ion-segment-button value="tea">
-                <ion-label>Tea</ion-label>
-            </ion-segment-button>
-            <ion-segment-button value="выпечка">
-                <ion-label>Выпечка</ion-label>
-            </ion-segment-button>
-            <ion-segment-button value="string">
-                <ion-label>Tea</ion-label>
-            </ion-segment-button>
-            <ion-segment-button value="string">
-                <ion-label>Tea</ion-label>
-            </ion-segment-button>
-            <ion-segment-button value="string">
-                <ion-label>Tea</ion-label>
-            </ion-segment-button>
-            <ion-segment-button value="string">
-                <ion-label>Tea</ion-label>
-            </ion-segment-button>
-            <ion-segment-button value="string">
-                <ion-label>Tea</ion-label>
-            </ion-segment-button>
+        <ion-segment scrollable="true" value="coffee" class="categories" id="category_select">
+            
         </ion-segment>
     </div>
 
@@ -218,7 +255,7 @@ export default class Menu extends HTMLElement {
             <ion-card class="item-card" mode="ios">
                 <img alt="Silhouette of mountains" src="https://www.vikhrolicucina.com/uploads/stories/1674223639_samosasingaraindianfriedbakedpastrywithsavoryfillingspicedpotatoesonionpeas.jpg" class="item-img" />
                 <ion-card-header class="py-2 px-2">
-                  <ion-card-title class="item-name">Cappuccino</ion-card-title>
+                  <ion-card-title class="item-name">Cappuccinoasdasdasdasdadadasdasdasdasdasdasdasda</ion-card-title>
                   <ion-card-subtitle class="item-price">3000₸</ion-card-subtitle>
                 </ion-card-header>
               
@@ -240,7 +277,7 @@ export default class Menu extends HTMLElement {
     </ion-content>
     <ion-footer>
     <div class="next-div-container">
-        <ion-router-link href="/cart">
+        <ion-router-link href="/${this.restaurant_Id}/cart">
             <button class="next-btn">
                 <ion-grid>
                     <ion-row>
