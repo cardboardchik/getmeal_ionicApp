@@ -7,6 +7,16 @@ export default class Pay extends HTMLElement {
     }
     
     render() {
+
+      const cart = JSON.parse(localStorage.getItem('cart')) || { items: {} };
+
+      let totalPrice = 0;
+
+      Object.values(cart.items).forEach(item => {
+          const itemTotal = item.quantity * item.price;
+          totalPrice += itemTotal;
+      });
+
     this.innerHTML = `
      <ion-header>
         <ion-toolbar class="cart-toolbar">
@@ -54,7 +64,7 @@ export default class Pay extends HTMLElement {
                 <ion-row>
                   <ion-col size="5">
                     <div>
-                        <span class="fs-1">3000 T</span>
+                        <span class="fs-1">${totalPrice} ₸</span>
                         <div class="small" style="margin-top: -10px;">Total</div>
                     </div>
                   </ion-col>

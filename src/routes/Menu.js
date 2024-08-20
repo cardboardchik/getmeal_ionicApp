@@ -21,6 +21,14 @@ function modal_work() {
         $(this).siblings('.btn-decrement').removeClass("disabled");
         $('.add-to-cart-btn').removeClass("delete-from-cart");
         $('.add-to-cart-btn').text("Add");
+        let cart =  JSON.parse(localStorage.getItem('cart'));
+        let item = cart.items[`id-${$(this).data('item-id')}`]
+        if (item){
+            $('.add-to-cart-btn').text("Update");
+
+        }
+
+
     });
 
     $(document).on('click', '.btn-decrement', function() {
@@ -31,7 +39,6 @@ function modal_work() {
             $counterValue.val(currentValue - 1);
         }
         if (currentValue - 1 < 1) {
-            removeFromCart($(this).data('item-id'))
             $(this).addClass("disabled");
             $(`ion-col > button[data-item-id="${$(this).data('item-id')}"]`).addClass('delete-from-cart')
             $(`ion-col > button[data-item-id="${$(this).data('item-id')}"]`).text('Remove')
@@ -63,6 +70,7 @@ function modal_work() {
                 </ion-row>
             </ion-gird>
             `)
+        $(`.add-to-cart-btn[data-item-id="${$(this).data('item-id')}"]`).text('Update')
                                             
         if (parseInt($(this).closest('.item-add-block').find('.counter-value').val()) < 1){
             $('.add-to-cart-btn').removeClass("delete-from-cart");
@@ -72,7 +80,13 @@ function modal_work() {
 
             $(`.item-add-btn[data-item-id="${$(this).data('item-id')}"]`).html(`<ion-icon name="add-outline"></ion-icon>
                 Add`)
+
+            $(`.add-to-cart-btn[data-item-id="${$(this).data('item-id')}"]`).text('Add')
         }
+
+
+        let cart =  JSON.parse(localStorage.getItem('cart'));
+        showNextButton(cart, $('.restaurant-name').data('rest-id'))
 
         let modals = document.querySelectorAll('ion-modal');
         modals.forEach(modal => {
@@ -171,19 +185,47 @@ function addToCart(item) {
     }
 }
 
-function removeFromCart(item_id) {
+function showNextButton(cart, rest_id) {
+    let totalCount = 0;
+    let totalPrice = 0;
 
+    Object.values(cart.items).forEach(item => {
+        totalCount += item.quantity;
+        totalPrice += item.quantity * item.price;
+    });
+
+    if (totalCount > 0) {
+        $("ion-footer").html(`
+            <div class="next-div-container">
+                <ion-router-link href="/${rest_id}/cart">
+                    <button class="next-btn">
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col size="4" class="next-btn-count">${totalCount} items</ion-col>
+                                <ion-col size="4">Next</ion-col>
+                                <ion-col size="4" class="next-btn-price">${totalPrice} ₸</ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </button>
+                </ion-router-link>
+              </div>
+        `);
+    } else {
+        $("ion-footer").html("");
+    }
 }
+
+
 
 
 export default class Menu extends HTMLElement {
     
     connectedCallback() {
         this.render();
-
+        const restaurant__id = this.restaurant_Id
         getCart(this.restaurant_Id)
 
-        
+
         function get_categories(menu_id) {
             return new Promise((resolve, reject) => {
                 var settings = {
@@ -230,7 +272,10 @@ export default class Menu extends HTMLElement {
 
             $.ajax(settings).done(function (data) {
                 const categories = {};
-        
+                let cart = JSON.parse(localStorage.getItem('cart'));
+
+                showNextButton(cart, restaurant__id)
+
                 data.forEach(item => {
                     item.category.forEach(cat => {
                         if (list_ids.includes(cat.id)){
@@ -266,7 +311,20 @@ export default class Menu extends HTMLElement {
                         let html_row = ``
                         group.forEach(item => {
                             let unique_id = Math.floor(Math.random() * 100)
+                            let inCart = cart.items[`id-${item.id}`];
+                            let buttonText = inCart ? `<ion-gird>
+                <ion-row class="d-block">
+                    <ion-col size="6" style="vertical-align: super;">
+                        ${inCart.quantity}
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-icon name="create"></ion-icon>
+                                                <span style="vertical-align: super;">Edit</span>
+                    </ion-col>
+                </ion-row>
+            </ion-gird>` : '<ion-icon name="add-outline"></ion-icon> Add';
                             html_row = html_row + `
+                            
                             <ion-col size="6">
                                 <ion-card class="item-card" mode="ios">
                                     <img alt="Photo" src="${item.image ? item.image : "./media/sample/71908.png" }" class="item-img" />
@@ -281,8 +339,7 @@ export default class Menu extends HTMLElement {
 
                                     <div class="item-add">
                                         <ion-button id="open-modal-${item.id}-${unique_id}" expand="block1" size="small" class="item-add-btn" data-item-id="${item.id}">
-                                            <ion-icon name="add-outline"></ion-icon>
-                                            Add
+                                            ${buttonText}
                                         </ion-button>
                                     </div>
 
@@ -312,15 +369,15 @@ export default class Menu extends HTMLElement {
                                                                     <ion-icon name="remove-outline"></ion-icon>
                                                                 </button>
 
-                                                                <input type="text" class="counter-value" value="1" readonly data-item-id="${item.id}">
-                                                                <button class="btn-increment" >
+                                                                <input type="text" class="counter-value" value="${inCart ? inCart.quantity : 1}" readonly data-item-id="${item.id}">
+                                                                <button class="btn-increment" data-item-id="${item.id}">
                                                                     <ion-icon name="add-outline"></ion-icon>
                                                                 </button>
                                                             </div>
                                                         </ion-col>
                                                         <ion-col size="7">
                                                             <button class="add-to-cart-btn" data-item-id="${item.id}" data-item-name="${item.name}" data-item-price="${item.price}" data-item-img="${item.image}">
-                                                                Add
+                                                                ${inCart ? "Update" : "Add"}
                                                             </button>
                                                         </ion-col>
                                                         </ion-row>
@@ -373,26 +430,33 @@ export default class Menu extends HTMLElement {
           };
           
           $.ajax(settings).done(function (response) {
-            $(".restaurant-head").html(`
-                <img src="${response.image}" alt="img" class="img-full" >
-                <ion-avatar>
-                    <img alt="img" src="${response.organization.image}" />
-                </ion-avatar>
-            `)
 
             $(".restaurant-info").html(`
-                <h1 class="restaurant-name">${response.organization.name} ${response.name}</h1>
-                <h5 class="text-secondary">Restaurant</h5>
-                
-                <ion-grid class="mt-3 p-0">
-                    <ion-row>
-                    <ion-col size="auto" class="px-0"><ion-icon name="time" class="align-baseline"></ion-icon></ion-col>
-                    <ion-col class="align-middle px-2"><h6 class="work-time">${response.work_time_open.slice(0, -3)} - ${response.work_time_close.slice(0, -3)}</h6></ion-col>
+                <ion-grid>
+                    <ion-row class="">
+                        <ion-col size="8" style="align-self: end;">
+                            <h1 class="restaurant-name" data-rest-id="${restaurant__id}">${response.organization.name} ${response.name}</h1>
+                            
+                                <ion-grid class="mt-3 p-0">
+                                    <ion-row>
+                                    <ion-col size="auto" class="px-0"><ion-icon name="time" class="align-baseline"></ion-icon></ion-col>
+                                    <ion-col class="align-middle px-2"><h6 class="work-time">${response.work_time_open.slice(0, -3)} - ${response.work_time_close.slice(0, -3)}</h6></ion-col>
 
+                                    </ion-row>
+                                </ion-grid>
+                        </ion-col>
+                        <ion-col size="4">
+                            <ion-avatar>
+                                <img alt="img" src="${response.organization.image}" />
+                            </ion-avatar>
+                                
+                        </ion-col>
                     </ion-row>
                 </ion-grid>
+               
+                
             `)
-          });
+          })
 
         
         var settings = {
@@ -419,73 +483,53 @@ export default class Menu extends HTMLElement {
                 renderMenu(response[0].id, response)
             })
 
+            
+
             $(document).ready(function() {
                 $('ion-segment-button').on('click', function(e) {
+
                     get_categories(e.target.id)
                     .then(response => {
-
-                        renderMenu(e.target.id, response)
-                        
-                        
+                        $("#menu_list").html(`<ion-spinner name="crescent" class="loading-spinner"></ion-spinner>`)
+                        renderMenu(e.target.id, response) 
                     })
 
                 });
                 
-    
             });
             startScrollHandlerAfterLoading()
-            modal_work()
-
-            
-        });
-
+            modal_work() 
+        })
     }
     
     render() {
+        this.innerHTML = `
+        <ion-content scrollEvents="true" ionScroll=>
     
-
-    this.innerHTML = `
-    <ion-content scrollEvents="true" ionScroll=>
-    <div class="restaurant-head">
-        
-    </div>
-    <div class="restaurant-info">
-        
-    </div>
-    <div class="nav-menu" mode="ios">
-        <div id="menu_select">
-            
+        <div class="restaurant-info">
+            <ion-spinner name="crescent" class="loading-spinner"></ion-spinner>
         </div>
-        <div id="category_select">
-            <ion-segment scrollable="true" value="coffee" class="categories" >
-                
-            </ion-segment>
+        <div class="nav-menu" mode="ios">
+            <div id="menu_select">
+                <ion-spinner name="crescent" class="loading-spinner"></ion-spinner>
+            </div>
+            <div id="category_select">
+                <ion-segment scrollable="true" value="coffee" class="categories" >
+                    
+                </ion-segment>
+            </div>
         </div>
-    </div>
-
-    <div id="menu_list">
+    
+        <div id="menu_list">
+            <ion-spinner name="crescent" class="loading-spinner"></ion-spinner>
+        </div>
         
-    </div>
-    
-    </ion-content>
-    <ion-footer>
-    <div class="next-div-container">
-        <ion-router-link href="/${this.restaurant_Id}/cart">
-            <button class="next-btn">
-                <ion-grid>
-                    <ion-row>
-                        <ion-col size="4" class="next-btn-count">7 items</ion-col>
-                        <ion-col size="4">Next</ion-col>
-                        <ion-col size="4" class="next-btn-price">3000 ₸</ion-col>
-                    </ion-row>
-                </ion-grid>
-            </button>
-        </ion-router-link>
-    </div>
-    </ion-footer>`;
-    
-   
+        </ion-content>
+        <ion-footer>
+        
+        </ion-footer>`;
     }
+    
     
 }
 
