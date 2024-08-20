@@ -12,6 +12,15 @@ html {
 
 }
 
+.delete-from-cart {
+    transition: 0.5s;
+    background: #ff0000 !important;
+}
+
+.cat-block {
+    scroll-margin-top: 100px;
+}
+
 .restaurant-head {
     height: 250px;
 }
@@ -110,6 +119,7 @@ ion-label:hover {
 
 .item-img {
     height: 150px;
+    width: 100%;
     object-fit: cover;
 }
 
