@@ -1,7 +1,7 @@
-import Menu from "./routes/Menu.js";
-import Cart from "./routes/Cart.js";
+import Menu from "./routes/Menuv2.js";
+import Cart from "./routes/Cartv2.js";
 import Pay from "./routes/Payv2.js";
-import Order from "./routes/Order.js";
+import Order from "./routes/Orderv2.js";
 
 class AppRoot extends HTMLElement {
     connectedCallback() {
