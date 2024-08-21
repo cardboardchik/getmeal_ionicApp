@@ -1,6 +1,6 @@
 import Menu from "./routes/Menuv2.js";
 import Cart from "./routes/Cartv2.js";
-import Pay from "./routes/Payv2.js";
+import Pay from "./routes/Payv3.js";
 import Order from "./routes/Orderv2.js";
 
 class AppRoot extends HTMLElement {
