@@ -43,8 +43,9 @@ export default class Pay extends HTMLElement {
 
         $(document).off('click', '#pay_btn');
         $(document).on('click', '#pay_btn', function() {
-          window.location.reload();
+          
           $.ajax(settings).done(function (response) {
+            window.location.reload();
             console.log(response);
           });
           localStorage.setItem("cart", '{"items": {}}')
