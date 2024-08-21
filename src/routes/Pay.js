@@ -1,11 +1,9 @@
 import API_URL from "./api.js";
+// version 1
 
 export default class Pay extends HTMLElement {
     connectedCallback() {
         this.render();
-
-        
-
     }
     
     render() {
@@ -48,8 +46,6 @@ export default class Pay extends HTMLElement {
           window.location.reload();
           $.ajax(settings).done(function (response) {
             console.log(response);
-            
-            
           });
           localStorage.setItem("cart", '{"items": {}}')
         })
@@ -119,8 +115,6 @@ export default class Pay extends HTMLElement {
         `;
       }
 
-      
-    
     }
 }
 
