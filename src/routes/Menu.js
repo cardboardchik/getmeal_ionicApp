@@ -330,7 +330,7 @@ export default class Menu extends HTMLElement {
                             html_row = html_row + `
                             
                             <ion-col size="6">
-                                <ion-card class="item-card" mode="ios">
+                                <ion-card class="item-card" mode="ios" id="open-modal-${item.id}-${unique_id}">
                                     <img alt="Photo" src="${item.image ? item.image : "./media/sample/71908.png" }" class="item-img" />
                                     <ion-card-header class="py-2 px-2">
                                     <ion-card-title class="item-name">${item.name}</ion-card-title>

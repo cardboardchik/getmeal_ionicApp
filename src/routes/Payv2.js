@@ -64,10 +64,10 @@ export default class Pay extends HTMLElement {
             </ion-toolbar>
         </ion-header>
         <ion-content>
-            <ion-radio-group value="space-between">
+            <ion-radio-group value="space-between2">
                 <h1 style="padding:15px 0 0 15px;">Payment Method</h1>
                 <ion-item>
-                  <ion-radio value="space-between" justify="space-between" class="pay-method-radio">
+                  <ion-radio value="space-between" justify="space-between" class="pay-method-radio" disabled="true">
                     <div class="pay-method-radio">
                         <ion-icon name="card" style="width: 36px; height:36px;"></ion-icon>
                         <span style="padding-left: 8px;">Card</span>
@@ -75,7 +75,7 @@ export default class Pay extends HTMLElement {
                   </ion-radio>
                 </ion-item>
                 <ion-item>
-                  <ion-radio value="space-between1" justify="space-between" class="pay-method-radio">
+                  <ion-radio value="space-between1" justify="space-between" class="pay-method-radio" disabled="true">
                     <img src="media/sample/KKS.F_BIG.svg" alt="Kaspi" style="width: 150px;">
                   </ion-radio>
                 </ion-item>
@@ -83,7 +83,7 @@ export default class Pay extends HTMLElement {
                     <ion-radio value="space-between2" justify="space-between" class="pay-method-radio">
                       <div class="pay-method-radio">
                             <ion-icon name="receipt" style="width: 36px; height:36px;"></ion-icon>
-                          <span style="padding-left: 8px;">Pay Later</span>
+                          <span style="padding-left: 8px;">Payment to the restaurant</span>
                       </div>
                     </ion-radio>
                 </ion-item>
