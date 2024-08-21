@@ -92,7 +92,26 @@ export default class Pay extends HTMLElement {
         
     
         </ion-content>
-        
+        <ion-footer>
+        <div class="next-div-container" style="padding:0px">
+                <ion-grid style="padding:0px">
+                    <ion-row>
+                      <ion-col size="5">
+                        <div>
+                            <span class="fs-1">${totalPrice} ₸</span>
+                            <div class="small" style="margin-top: -10px;">Total</div>
+                        </div>
+                      </ion-col>
+                      <ion-col size="7">
+                        <ion-router-link href="/${this.restaurant_Id}/order">
+                            <button class="add-to-cart-btn fw-bold" id="pay_btn">
+                                Order
+                            </button>
+                        </ion-router-link>
+                      </ion-col>
+                    </ion-row>
+                </ion-grid>
+        </div></ion-footer>
         `;
       }
 
