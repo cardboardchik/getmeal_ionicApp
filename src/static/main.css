@@ -198,6 +198,15 @@ ion-modal {
     border-radius: 14px;
 }
 
+.back-to-menu {
+    color: #fff;
+    background: #E96E0E;
+
+    width: 100%;
+    height: 100%;
+    border-radius: 14px;
+}
+
 .counter {
     display: flex;
     width: 100%;

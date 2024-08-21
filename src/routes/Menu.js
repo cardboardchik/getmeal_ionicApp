@@ -1,6 +1,8 @@
 import API_URL from "./api.js";
 
 function modal_work() {
+   
+
     $(document).on('click', '#categories-btns', function() {
         var categoryId = $(this).attr('cat');
         var targetId = `#cat-${categoryId}`;
@@ -168,7 +170,7 @@ function getCart(restaurant_Id) {
 function addToCart(item) {
     let cart =  JSON.parse(localStorage.getItem('cart'));
 
-    console.log(item)
+
     if (cart.items[Object.keys(item)[0]]) {
         if (item[Object.keys(item)[0]].quantity < 1){
             delete cart.items[Object.keys(item)[0]]
@@ -222,6 +224,8 @@ export default class Menu extends HTMLElement {
     
     connectedCallback() {
         this.render();
+    
+
         const restaurant__id = this.restaurant_Id
         getCart(this.restaurant_Id)
 
@@ -430,7 +434,7 @@ export default class Menu extends HTMLElement {
           };
           
           $.ajax(settings).done(function (response) {
-
+            localStorage.setItem("organization_id", response.organization.id)
             $(".restaurant-info").html(`
                 <ion-grid>
                     <ion-row class="">
@@ -467,6 +471,7 @@ export default class Menu extends HTMLElement {
 
         $.ajax(settings).done(function (response) {
             let html_res = ``
+            
             response.forEach(response => {
                 html_res = html_res + `<ion-segment-button value="${response.name}" id="${response.id}">
                                             <ion-label>${response.name} Menu</ion-label>
@@ -479,8 +484,9 @@ export default class Menu extends HTMLElement {
                 `)
             $("#menu_select").val(response[0].id)
             get_categories(response[0].id)
-            .then(response => {
-                renderMenu(response[0].id, response)
+            .then(response_cat => {
+                renderMenu(response[0].id, response_cat)
+
             })
 
             
@@ -503,31 +509,71 @@ export default class Menu extends HTMLElement {
     }
     
     render() {
-        this.innerHTML = `
-        <ion-content scrollEvents="true" ionScroll=>
-    
-        <div class="restaurant-info">
-            <ion-spinner name="crescent" class="loading-spinner"></ion-spinner>
-        </div>
-        <div class="nav-menu" mode="ios">
-            <div id="menu_select">
+        // Get the hash part of the URL, which includes the query parameters
+        const hash = window.location.hash;
+
+        // Extract the part after the `?` to get the query string
+        const queryString = hash.includes('?') ? hash.split('?')[1] : '';
+
+        // Use URLSearchParams to parse the query string
+        const searchParams = new URLSearchParams(queryString);
+
+        // Retrieve the 'table' parameter value
+        const tableValue = searchParams.get('table');
+
+        localStorage.setItem("table", tableValue)
+        
+        if (tableValue) {
+            this.innerHTML = `
+            <ion-content scrollEvents="true" ionScroll=>
+        
+            <div class="restaurant-info">
                 <ion-spinner name="crescent" class="loading-spinner"></ion-spinner>
             </div>
-            <div id="category_select">
-                <ion-segment scrollable="true" value="coffee" class="categories" >
-                    
-                </ion-segment>
+            <div class="nav-menu" mode="ios">
+                <div id="menu_select">
+                    <ion-spinner name="crescent" class="loading-spinner"></ion-spinner>
+                </div>
+                <div id="category_select">
+                    <ion-segment scrollable="true" value="coffee" class="categories" >
+                        
+                    </ion-segment>
+                </div>
             </div>
-        </div>
-    
-        <div id="menu_list">
-            <ion-spinner name="crescent" class="loading-spinner"></ion-spinner>
-        </div>
         
-        </ion-content>
-        <ion-footer>
+            <div id="menu_list">
+                <ion-spinner name="crescent" class="loading-spinner"></ion-spinner>
+            </div>
+            
+            </ion-content>
+            <ion-footer>
+            
+            </ion-footer>`;
+        }
+        else {
+            this.innerHTML = `
+            <ion-content scrollEvents="true" ionScroll=>
         
-        </ion-footer>`;
+            <div class="restaurant-info">
+                <ion-spinner name="crescent" class="loading-spinner"></ion-spinner>
+            </div>
+            <div class="nav-menu" mode="ios">
+                <div id="menu_select">
+                    <ion-spinner name="crescent" class="loading-spinner"></ion-spinner>
+                </div>
+                <div id="category_select">
+                    <ion-segment scrollable="true" value="coffee" class="categories" >
+                        
+                    </ion-segment>
+                </div>
+            </div>
+        
+            <div id="menu_list">
+                <ion-spinner name="crescent" class="loading-spinner"></ion-spinner>
+            </div>
+            
+            </ion-content>`;
+        }
     }
     
     
