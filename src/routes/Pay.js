@@ -42,12 +42,13 @@ export default class Pay extends HTMLElement {
               "status": null
             }),
           };
+
+        $(document).off('click', '#pay_btn');
         $(document).on('click', '#pay_btn', function() {
           $.ajax(settings).done(function (response) {
             console.log(response);
             localStorage.setItem("cart", '{"items": {}}')
           });
-
         })
         
     
